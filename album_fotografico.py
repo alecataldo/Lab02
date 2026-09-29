@@ -1,6 +1,37 @@
+import csv
+
+
 def carica_da_file(file_path):
     """Carica le foto dal file, creando un nuovo anno ogni volta che compare per la prima volta"""
-    # TODO
+    "Creo l'album"
+    album={}
+    "Inserisco un try per valutare l'errore in caso di file non trovato"
+    try:
+        "Apro il file e creo un dizionario per riga"
+        with open(file_path, encoding="utf-8") as file:
+            lettore=csv.DictReader(file,skipinitialspace=True)
+            "Inserisco le foto nell'album"
+
+
+            for foto in lettore:
+                "Vedo l'anno della foto"
+                anno=int(foto["anno"])
+                "Controllo che sia già presente l'anno nell'album altrimenti lo aggiungo"
+                if anno not in album:
+                    album[anno]=[]
+                "Aggiungo le foto all'album ordinandole per anno"
+                album[anno].append(foto)
+
+        print("Album caricato")
+        return False
+
+
+    except FileNotFoundError:
+        print("!!!File non trovato, riprovare!!!")
+        return None
+
+
+
 
 
 def aggiungi_foto(album, codice, titolo, autore, mese, anno, file_path):
