@@ -23,7 +23,7 @@ def carica_da_file(file_path):
                 album[anno].append(foto)
 
         print("Album caricato")
-        return False
+        return album
 
 
     except FileNotFoundError:
@@ -37,7 +37,33 @@ def carica_da_file(file_path):
 
 def aggiungi_foto(album, codice, titolo, autore, mese, anno, file_path):
     """Aggiunge una foto all'album, creando l'anno al volo se non è ancora presente"""
-    # TODO
+    nuova_foto={"codice":codice,"titolo":titolo,"autore":autore,"mese":mese,"anno":anno}
+    for foto in album.values():
+        for f in foto:
+            if f["codice"] == codice:
+                print("Il codice è già presente")
+                return None
+    if nuova_foto["mese"]>12 or nuova_foto["mese"]<1:
+        print("Mese non valido")
+        return None
+    else:
+
+        if int(nuova_foto["anno"]) not in album:
+            album[anno]=[]
+        album[anno].append(nuova_foto)
+        try:
+            with open(file_path,"a",newline="",encoding="utf-8") as file:
+                scrittore=csv.DictWriter(file,fieldnames=nuova_foto.keys())
+                scrittore.writerow(nuova_foto)
+        except FileNotFoundError:
+            print("!!!File non trovato, riprovare!!!")
+            return None
+
+
+
+        return nuova_foto
+
+
 
 
 def cerca_foto(album, codice):
