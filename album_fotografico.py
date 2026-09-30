@@ -75,9 +75,10 @@ def aggiungi_foto(album, codice, titolo, autore, mese, anno, file_path):
 
 def cerca_foto(album, codice):
     """Cerca una foto nell'album dato il codice"""
-
-    for anno in album.values():
-         for foto in anno:
+    "Entro in ogni lista di dizionari dell'album attraverso il primo for e con il secondo for controllo che le fotoa all'interno"
+    "di quelle liste abbiano il codice dell'input"
+    for foto_anno in album.values():
+         for foto in foto_anno:
              if foto["codice"]==codice:
                 risultato= ", ".join(str(valore) for valore in foto.values())
                 return risultato
