@@ -58,7 +58,7 @@ def aggiungi_foto(album, codice, titolo, autore, mese, anno, file_path):
         print("!!!File non trovato, riprovare!!!")
         return None
 
-    "Scrivo una nuova riga sul file csv controllando eventuale errore di file non trovato"
+    "Scrivo una nuova riga sul file csv"
     with open(file_path,"a",newline="",encoding="utf-8") as file:
         scrittore=csv.DictWriter(file,fieldnames=nuova_foto.keys())
         scrittore.writerow(nuova_foto)
